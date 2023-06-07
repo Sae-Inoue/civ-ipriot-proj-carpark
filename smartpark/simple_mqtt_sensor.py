@@ -2,10 +2,10 @@
 a publication via mqtt"""
 import random
 
-import simple_mqtt_device
+import mqtt_device
 
 
-class Sensor(simple_mqtt_device.MqttDevice):
+class Sensor(mqtt_device.MqttDevice):
 
     @property
     def temperature(self):
@@ -32,11 +32,13 @@ class Sensor(simple_mqtt_device.MqttDevice):
 if __name__ == '__main__':
     config1 = {'name': 'sensor',
               'location': 'moondalup',
+              'topic-qualifier': ' ',
               'topic-root': "lot",
               'broker': 'localhost',
               'port': 1883,
               }
     # TODO: Read previous config from file instead of embedding
+
 
     sensor1 = Sensor(config1)
 

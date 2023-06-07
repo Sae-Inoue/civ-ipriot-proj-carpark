@@ -1,0 +1,11 @@
+{
+    "name": "Sae-park",
+    "total-spaces": 130,
+    "total-cars": 0,
+    "location": "L306",
+    "broker": "localhost",
+    "port": 1883,
+    "topic-root": "lot",
+    "topic-qualifier": "entry",
+    "is_stuff": "False"
+}
