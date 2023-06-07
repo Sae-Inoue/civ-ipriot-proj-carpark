@@ -1,5 +1,6 @@
 import mqtt_device
 import time
+
 class Display(mqtt_device.MqttDevice):
     """Displays the number of cars and the temperature"""
     def __init__(self, config):
@@ -20,14 +21,22 @@ class Display(mqtt_device.MqttDevice):
        self.display(*data.split(','))
        # TODO: Parse the message and extract free spaces,\
        #  temperature, time
+       self.temperature = msg.payload.split(",")[1].strip()
+
+import json
 
 if __name__ == '__main__':
     '''config = {'name': 'display',
-            'location': 'L306',
-            'topic-root': "lot",
-            'broker': 'localhost',
-            'port': 1883,
-            'topic-qualifier': 'na'
-            }'''
+     'location': 'L306',
+     'topic-root': "lot",
+     'broker': 'localhost',
+     'port': 1883,
+     'topic-qualifier': 'na'
+     }'''
     # TODO: Read config from file
-    display = Display()
+    path = "../smartpark/config.json"
+    file_handle =open(path,"r")
+    config = json.load(file_handle)
+    file_handle.close()
+
+    display = Display(config)

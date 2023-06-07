@@ -63,9 +63,9 @@ class CarPark(mqtt_device.MqttDevice):
         else:
             self.on_car_entry()
 
-
+import json
 if __name__ == '__main__':
-    '''config = {'name': "Sae-park",
+    '''config = {'name': "raf-park",
               'total-spaces': 130,
               'total-cars': 0,
               'location': 'L306',
@@ -76,6 +76,10 @@ if __name__ == '__main__':
               'is_stuff': False
               }'''
     # TODO: Read config from file
-    car_park = CarPark()
+    path = "../smartpark/config.json"
+    file_handle = open(path, "r")
+    config = json.load(file_handle)
+    file_handle.close()
+    car_park = CarPark(config)
     print("Carpark initialized")
     print("Carpark initialized")
