@@ -4,7 +4,6 @@ import time
 
 class Display(mqtt_device.MqttDevice):
     """Displays the number of cars and the temperature"""
-    # Hope it worked 
 
     def __init__(self, config):
         super().__init__(config)
