@@ -1,4 +1,6 @@
+import random
 from datetime import datetime
+import random as rand
 
 import mqtt_device
 import paho.mqtt.client as paho
@@ -24,32 +26,47 @@ class CarPark(mqtt_device.MqttDevice):
 
     @property
     def temperature(self):
-        self._temperature
+        self._temperature = random.randint(0, 45)
+        return self._temperature
 
     @temperature.setter
     def temperature(self, value):
         self._temperature = value
 
     def _publish_event(self):
-        readable_time = datetime.now().strftime('%H:%M')
+        readable_time = datetime.now().strftime('%H:%M')  # getting realtime
+        temperature = self.temperature  # using getter to get temperature
+        '''
+            The print function below, is printing capark display or messages
+            It is printing the Time in realtime
+            Spaces available
+            Temperature
+        '''
         print(
             (
                     f"TIME: {readable_time}, "
                     + f"SPACES: {self.available_spaces}, "
-                    + "TEMPC: 42"
+                    + f"TEMPC: {temperature}"
             )
         )
+
+        '''
+            Just like the printing above 
+            Message is displaying for simple_mqtt_display 
+        '''
         message = (
                 f"TIME: {readable_time}, "
                 + f"SPACES: {self.available_spaces}, "
-                + "TEMPC: 42"
+                + f"TEMPC: {temperature}"
         )
         self.client.publish('display', message)
 
+    # This function increases the number of cars when called
     def on_car_entry(self):
         self.total_cars += 1
         self._publish_event()
 
+    # This function reduces the cars number when called
     def on_car_exit(self):
         self.total_cars -= 1
         self._publish_event()
@@ -57,13 +74,15 @@ class CarPark(mqtt_device.MqttDevice):
     def on_message(self, client, userdata, msg: MQTTMessage):
         payload = msg.payload.decode()
         # TODO: Extract temperature from payload
-        # self.temperature = ... # Extracted value
+        self.temperature = msg.payload.decode()  # Extracted value
         if 'exit' in payload:
             self.on_car_exit()
         else:
             self.on_car_entry()
 
+
 import json
+
 if __name__ == '__main__':
     '''config = {'name': "raf-park",
               'total-spaces': 130,
