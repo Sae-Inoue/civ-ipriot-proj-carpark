@@ -24,7 +24,7 @@ class Display(mqtt_device.MqttDevice):
         self.display(*data.split(','))
         # TODO: Parse the message and extract free spaces,\
         #  temperature, time
-        self.temperature = msg.payload.split(",")[1].strip()
+
 
 
 import json

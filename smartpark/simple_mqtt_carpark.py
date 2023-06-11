@@ -37,7 +37,7 @@ class CarPark(mqtt_device.MqttDevice):
         readable_time = datetime.now().strftime('%H:%M')  # getting realtime
         temperature = self.temperature  # using getter to get temperature
         '''
-            The print function below, is printing capark display or messages
+            The print function below, is printing carpark display or messages
             It is printing the Time in realtime
             Spaces available
             Temperature
@@ -74,7 +74,7 @@ class CarPark(mqtt_device.MqttDevice):
     def on_message(self, client, userdata, msg: MQTTMessage):
         payload = msg.payload.decode()
         # TODO: Extract temperature from payload
-        self.temperature = msg.payload.decode()  # Extracted value
+        self.temperature = payload  # Extracted value
         if 'exit' in payload:
             self.on_car_exit()
         else:

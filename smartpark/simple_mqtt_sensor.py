@@ -30,14 +30,19 @@ class Sensor(mqtt_device.MqttDevice):
 
 
 if __name__ == '__main__':
-    config1 = {'name': 'sensor',
+    '''config1 = {'name': 'sensor',
                'location': 'moondalup',
                'topic-qualifier': ' ',
                'topic-root': "lot",
                'broker': 'localhost',
                'port': 1883,
-               }
+               }'''
+    import json
     # TODO: Read previous config from file instead of embedding
+    path = "../smartpark/config.json"
+    file_handle = open(path, "r")
+    config1 = json.load(file_handle)
+    file_handle.close()
 
     sensor1 = Sensor(config1)
 
