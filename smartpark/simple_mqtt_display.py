@@ -30,13 +30,7 @@ class Display(mqtt_device.MqttDevice):
 import json
 
 if __name__ == '__main__':
-    '''config = {'name': 'display',
-     'location': 'L306',
-     'topic-root': "lot",
-     'broker': 'localhost',
-     'port': 1883,
-     'topic-qualifier': 'na'
-     }'''
+
     # TODO: Read config from file
     path = "../smartpark/config.json"
     file_handle = open(path, "r")
